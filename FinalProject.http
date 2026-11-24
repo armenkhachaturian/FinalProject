@@ -1,0 +1,75 @@
+@baseUrl = http://localhost:5084
+
+### 1. Create Category (POST)
+POST {{baseUrl}}/api/categories
+Content-Type: application/json
+
+{
+  "name": "Electronics",
+  "description": "Electronic devices and gadgets"
+}
+
+### 2. Get All Categories (GET)
+GET {{baseUrl}}/api/categories
+
+### 3. Get Category by Id (GET)
+GET {{baseUrl}}/api/categories/1
+
+### 4. Update Category (PUT)
+PUT {{baseUrl}}/api/categories/1
+Content-Type: application/json
+
+{
+  "name": "Electronics Updated",
+  "description": "Updated description"
+}
+
+### 5. Delete Category (DELETE) - only succeeds if it has no products
+DELETE {{baseUrl}}/api/categories/1
+
+### --- PRODUCTS ---
+
+### 6. Create Product (POST)
+POST {{baseUrl}}/api/products
+Content-Type: application/json
+
+{
+  "name": "Wireless Mouse",
+  "sku": "WM-101",
+  "price": 25.50,
+  "stockQuantity": 10,
+  "categoryId": 1
+}
+
+### 7. Get All Products (GET)
+GET {{baseUrl}}/api/products
+
+### 8. Get Products Filtered by Category (GET with query param)
+GET {{baseUrl}}/api/products?categoryId=1
+
+### 9. Get Product by Id (GET)
+GET {{baseUrl}}/api/products/1
+
+### 10. Update Product Stock - Add (+5) (PATCH)
+PATCH {{baseUrl}}/api/products/1/stock
+Content-Type: application/json
+
+{
+  "delta": 5
+}
+
+### 11. Update Product Stock - Remove (-3) (PATCH)
+PATCH {{baseUrl}}/api/products/1/stock
+Content-Type: application/json
+
+{
+  "delta": -3
+}
+
+### 12. Update Product Stock - Exceeding stock (should return 409 Conflict)
+PATCH {{baseUrl}}/api/products/1/stock
+Content-Type: application/json
+
+{
+  "delta": -999
+}
